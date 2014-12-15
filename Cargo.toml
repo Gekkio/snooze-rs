@@ -1,0 +1,8 @@
+[package]
+
+name = "snooze-rs"
+version = "0.0.0"
+authors = ["Joonas Javanainen <joonas.javanainen@gmail.com>"]
+
+[lib]
+name = "snooze"
