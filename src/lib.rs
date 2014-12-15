@@ -1,4 +1,6 @@
 extern crate libc;
+#[cfg(test)]
+extern crate test;
 
 #[cfg(target_os = "linux")]
 use self::linux as os_specific;
@@ -17,6 +19,9 @@ mod linux;
 mod mach;
 #[cfg(target_os = "windows")]
 mod windows;
+
+#[cfg(test)]
+mod tests;
 
 #[deriving(Show)]
 pub enum SnoozeError {
@@ -62,3 +67,4 @@ impl Snooze {
   /// Puts the current thread to sleep until the next wake-up time
   pub fn wait(&mut self) -> SnoozeResult<()> { self.0.wait() }
 }
+
