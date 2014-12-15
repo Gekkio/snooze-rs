@@ -59,5 +59,6 @@ impl Snooze {
     Ok(Snooze(try!(os_specific::Snooze::new(duration))))
   }
   pub fn reset(&mut self) -> SnoozeResult<()> { self.0.reset() }
+  /// Puts the current thread to sleep until the next wake-up time
   pub fn wait(&mut self) -> SnoozeResult<()> { self.0.wait() }
 }
