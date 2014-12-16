@@ -51,6 +51,7 @@ pub struct Snooze {
 
 impl Snooze {
   pub fn new(duration: Duration) -> SnoozeResult<Snooze> {
+    // TODO: Figure out if unwrap() is safe or not
     let duration_secs = duration.num_seconds();
     let duration_nanos = (duration - Duration::seconds(duration_secs)).num_nanoseconds().unwrap();
     Ok(Snooze {

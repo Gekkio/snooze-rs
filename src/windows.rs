@@ -71,6 +71,7 @@ pub struct Snooze {
 impl Drop for Snooze {
   fn drop(&mut self) {
     if unsafe { CloseHandle(self.timer_handle) } == 0 {
+      // TODO: Figure out if panic! in drop() is in any way acceptable
       panic!("CloseHandle failed: {}", last_os_error());
     }
   }
@@ -78,6 +79,7 @@ impl Drop for Snooze {
 
 impl Snooze {
   pub fn new(duration: Duration) -> SnoozeResult<Snooze> {
+    // TODO: Figure out if unwrap() is safe or not
     let duration = duration.num_nanoseconds().unwrap() / 100;
     Ok(Snooze {
       duration: duration,

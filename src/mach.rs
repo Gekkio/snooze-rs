@@ -48,6 +48,7 @@ pub struct Snooze {
 
 impl Snooze {
   pub fn new(duration: Duration) -> SnoozeResult<Snooze> {
+    // TODO: Check for unwrap() and u64 cast overflow
     Ok(Snooze {
       duration: try!(convert_nanos(duration.num_nanoseconds().unwrap() as u64)),
       last_time: absolute_time()
