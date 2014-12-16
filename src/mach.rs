@@ -1,3 +1,5 @@
+use libc::mach_timebase_info;
+use std::mem;
 use std::time::duration::Duration;
 
 use super::{SnoozeError, SnoozeResult};
@@ -18,7 +20,7 @@ mod ffi {
 }
 
 fn absolute_time() -> AbsTime {
-  unsafe { mach_absolute_time() }
+  unsafe { ffi::mach_absolute_time() }
 }
 
 fn convert_nanos(nanos: u64) -> SnoozeResult<AbsTime> {
@@ -47,7 +49,7 @@ pub struct Snooze {
 impl Snooze {
   pub fn new(duration: Duration) -> SnoozeResult<Snooze> {
     Ok(Snooze {
-      duration: try!(convert_duration(duration)),
+      duration: try!(convert_nanos(duration.num_nanoseconds().unwrap() as u64)),
       last_time: absolute_time()
     })
   }
