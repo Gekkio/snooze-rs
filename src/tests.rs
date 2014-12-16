@@ -23,9 +23,9 @@ fn test_average_error(duration: Duration) {
   if error < Duration::zero() {
     error = error.neg();
   }
-  // Expect < 50 us average absolute error.
+  // Expect < 1 ms average absolute error.
   // No idea if this is reasonable
-  let max_error = Duration::microseconds(50);
+  let max_error = Duration::milliseconds(1);
   assert!(error < max_error, "error({}) < max_error({})", error, max_error);
 }
 #[test]
