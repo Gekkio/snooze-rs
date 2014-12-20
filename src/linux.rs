@@ -1,4 +1,4 @@
-use libc::{EINTR, EINVAL, CLOCK_MONOTONIC, c_int, timespec};
+use libc::{EINTR, EINVAL, CLOCK_MONOTONIC, c_int, c_long, time_t, timespec};
 use std::mem;
 use std::os;
 use std::ptr::null_mut;
@@ -44,8 +44,7 @@ fn clock_nanosleep(time: &timespec) -> SnoozeResult<()> {
 
 #[allow(missing_copy_implementations)]
 pub struct Snooze {
-  duration_secs: i64,
-  duration_nanos: i64,
+  duration: timespec,
   last_time: timespec
 }
 
@@ -55,8 +54,10 @@ impl Snooze {
     let duration_secs = duration.num_seconds();
     let duration_nanos = (duration - Duration::seconds(duration_secs)).num_nanoseconds().unwrap();
     Ok(Snooze {
-      duration_secs: duration_secs,
-      duration_nanos: duration_nanos,
+      duration: timespec {
+        tv_sec: duration_secs as time_t,
+        tv_nsec: duration_nanos as c_long
+      },
       last_time: try!(clock_gettime())
     })
   }
@@ -66,11 +67,11 @@ impl Snooze {
   }
   pub fn wait(&mut self) -> SnoozeResult<()> {
     let mut seconds =
-      self.last_time.tv_sec + self.duration_secs;
+      self.last_time.tv_sec + self.duration.tv_sec;
     let mut nanos =
-      self.last_time.tv_nsec + self.duration_nanos;
+      self.last_time.tv_nsec + self.duration.tv_nsec;
 
-    const NANOS_IN_SECOND: i64 = 1000000000;
+    const NANOS_IN_SECOND: c_long = 1000000000;
     if nanos >= NANOS_IN_SECOND {
       seconds += 1;
       nanos -= NANOS_IN_SECOND;
