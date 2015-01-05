@@ -21,7 +21,7 @@ fn test_average_error(duration: Duration) {
   let mut error =
     average_error(16, duration);
   if error < Duration::zero() {
-    error = error.neg();
+    error = -error;
   }
   // Expect < 1 ms average absolute error.
   // No idea if this is reasonable
