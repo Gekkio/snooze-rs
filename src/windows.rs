@@ -51,7 +51,7 @@ fn get_system_time() -> Nanos100 {
   unsafe {
     GetSystemTimeAsFileTime(&mut time);
   }
-  ((time.dwHighDateTime as u64 << 32) | time.dwLowDateTime as u64) as Nanos100
+  (((time.dwHighDateTime as u64) << 32) | time.dwLowDateTime as u64) as Nanos100
 }
 
 fn wait_for_single_object(handle: HANDLE) -> SnoozeResult<()> {

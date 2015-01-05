@@ -23,7 +23,7 @@ mod windows;
 #[cfg(test)]
 mod tests;
 
-#[deriving(Show)]
+#[derive(Show)]
 pub enum SnoozeError {
   Unsupported(String),
   Other(uint)
