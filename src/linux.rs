@@ -25,7 +25,7 @@ fn clock_gettime() -> SnoozeResult<timespec> {
   if ret != 0 {
     Err(match os::errno() as c_int {
       EINVAL => SnoozeError::Unsupported("CLOCK_MONOTONIC is not supported".to_string()),
-      error => SnoozeError::from_errno(error as uint)
+      error => SnoozeError::from_errno(error as usize)
     })
   } else { Ok(tp) }
 }
@@ -36,7 +36,7 @@ fn clock_nanosleep(time: &timespec) -> SnoozeResult<()> {
   } != 0 {
     match os::errno() as c_int {
       EINTR => (),
-      error => return Err(SnoozeError::from_errno(error as uint))
+      error => return Err(SnoozeError::from_errno(error as usize))
     }
   }
   Ok(())

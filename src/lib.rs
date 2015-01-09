@@ -26,7 +26,7 @@ mod tests;
 #[derive(Show)]
 pub enum SnoozeError {
   Unsupported(String),
-  Other(uint)
+  Other(usize)
 }
 
 #[allow(dead_code)]
@@ -34,7 +34,7 @@ impl SnoozeError {
   fn from_last_os_error() -> SnoozeError {
     SnoozeError::Other(errno())
   }
-  fn from_errno(error: uint) -> SnoozeError {
+  fn from_errno(error: usize) -> SnoozeError {
     SnoozeError::Other(error)
   }
 }
