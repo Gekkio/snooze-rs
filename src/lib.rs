@@ -10,6 +10,8 @@ use self::mach as os_specific;
 use self::windows as os_specific;
 
 use std::error::Error;
+use std::fmt;
+use std::fmt::Display;
 use std::os::{errno, error_string};
 use std::time::Duration;
 
@@ -46,10 +48,13 @@ impl Error for SnoozeError {
       SnoozeError::Other(..) => "System error"
     }
   }
-  fn detail(&self) -> Option<String> {
+}
+
+impl Display for SnoozeError {
+  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     match *self {
-      SnoozeError::Unsupported(ref msg) => Some(msg.clone()),
-      SnoozeError::Other(error) => Some(error_string(error))
+      SnoozeError::Unsupported(ref msg) => f.write_str(msg.as_slice()),
+      SnoozeError::Other(error) => f.write_str(&* error_string(error))
     }
   }
 }
