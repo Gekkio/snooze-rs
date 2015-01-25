@@ -2,7 +2,7 @@ extern crate libc;
 #[cfg(test)]
 extern crate test;
 
-#[cfg(target_os = "linux")]
+#[cfg(any(target_os = "linux", target_os = "android"))]
 use self::linux as os_specific;
 #[cfg(any(target_os = "macos", target_os = "ios"))]
 use self::mach as os_specific;
@@ -13,7 +13,7 @@ use std::error::Error;
 use std::os::{errno, error_string};
 use std::time::Duration;
 
-#[cfg(target_os = "linux")]
+#[cfg(any(target_os = "linux", target_os = "android"))]
 mod linux;
 #[cfg(any(target_os = "macos", target_os = "ios"))]
 mod mach;
