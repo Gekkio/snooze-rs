@@ -1,4 +1,4 @@
-#![allow(unstable)]
+#![feature(collections, core, libc, os, std_misc)]
 
 extern crate libc;
 #[cfg(test)]
