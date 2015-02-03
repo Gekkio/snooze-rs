@@ -1,4 +1,4 @@
-#![feature(collections, core, libc, os, std_misc)]
+#![feature(core, libc, os, std_misc)]
 
 extern crate libc;
 #[cfg(test)]
@@ -27,7 +27,7 @@ mod windows;
 #[cfg(test)]
 mod tests;
 
-#[derive(Show)]
+#[derive(Debug)]
 pub enum SnoozeError {
   Unsupported(String),
   Other(usize)
