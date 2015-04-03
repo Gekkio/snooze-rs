@@ -1,3 +1,4 @@
+use std::iter::range_inclusive;
 use std::time::Duration;
 use test::Bencher;
 
@@ -8,7 +9,7 @@ fn average_error(count: i32, duration: Duration) -> Duration {
   let mut total = Duration::zero();
   let mut snooze = Snooze::new(duration).unwrap();
 
-  for _ in range(0, count) {
+  for _ in range_inclusive(1, count) {
     total = total + (Duration::span(|| {
       snooze.wait().unwrap();
     }) - duration);
@@ -62,7 +63,7 @@ fn bench_1ms(b: &mut Bencher) {
 fn bench_100us_sum(b: &mut Bencher) {
   let mut snooze = Snooze::new(Duration::microseconds(100)).unwrap();
   b.iter(|| {
-    for _ in range(0, 100us) {
+    for _ in range_inclusive(0, 100us) {
       snooze.wait().unwrap()
     }
   });
@@ -71,7 +72,7 @@ fn bench_100us_sum(b: &mut Bencher) {
 fn bench_1ms_sum(b: &mut Bencher) {
   let mut snooze = Snooze::new(Duration::milliseconds(1)).unwrap();
   b.iter(|| {
-    for _ in range(0, 10us) {
+    for _ in range_inclusive(0, 10us) {
       snooze.wait().unwrap()
     }
   });

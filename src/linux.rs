@@ -1,6 +1,6 @@
-use libc::{EINTR, EINVAL, CLOCK_MONOTONIC, c_int, c_long, time_t, timespec};
+use nix::errno::Errno;
+use libc::{CLOCK_MONOTONIC, c_long, time_t, timespec};
 use std::mem;
-use std::os;
 use std::ptr::null_mut;
 use std::time::duration::Duration;
 
@@ -23,9 +23,9 @@ fn clock_gettime() -> SnoozeResult<timespec> {
     ffi::clock_gettime(CLOCK_MONOTONIC, &mut tp)
   };
   if ret != 0 {
-    Err(match os::errno() as c_int {
-      EINVAL => SnoozeError::Unsupported("CLOCK_MONOTONIC is not supported".to_string()),
-      error => SnoozeError::from_errno(error as i32)
+    Err(match Errno::last() {
+      Errno::EINVAL => SnoozeError::Unsupported("CLOCK_MONOTONIC is not supported".to_string()),
+      error => SnoozeError::from_errno(error)
     })
   } else { Ok(tp) }
 }
@@ -34,9 +34,9 @@ fn clock_nanosleep(time: &timespec) -> SnoozeResult<()> {
   while unsafe {
     ffi::clock_nanosleep(CLOCK_MONOTONIC, ffi::TIMER_ABSTIME, time, null_mut())
   } != 0 {
-    match os::errno() as c_int {
-      EINTR => (),
-      error => return Err(SnoozeError::from_errno(error as i32))
+    match Errno::last() {
+      Errno::EINTR => (),
+      error => return Err(SnoozeError::from_errno(error))
     }
   }
   Ok(())

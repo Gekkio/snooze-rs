@@ -6,3 +6,6 @@ authors = ["Joonas Javanainen <joonas.javanainen@gmail.com>"]
 
 [lib]
 name = "snooze"
+
+[dependencies]
+nix = "*"
