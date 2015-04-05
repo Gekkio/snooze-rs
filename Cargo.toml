@@ -3,6 +3,11 @@
 name = "snooze-rs"
 version = "0.0.0"
 authors = ["Joonas Javanainen <joonas.javanainen@gmail.com>"]
+description = "An experimental library for sleeping periodically"
+readme = "README.markdown"
+homepage = "https://github.com/gekkio/snooze-rs"
+repository = "https://github.com/gekkio/snooze-rs"
+license = "Apache-2.0"
 
 [lib]
 name = "snooze"
