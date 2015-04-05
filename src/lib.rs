@@ -2,11 +2,6 @@
 
 #![cfg_attr(test, feature(core, test))]
 
-#[cfg(any(target_os = "android",
-          target_os = "ios",
-          target_os = "linux",
-          target_os = "macos"))]
-extern crate nix;
 extern crate libc;
 #[cfg(test)]
 extern crate test;
@@ -18,10 +13,10 @@ use self::mach as os_specific;
 #[cfg(target_os = "windows")]
 use self::windows as os_specific;
 
-use nix::errno::Errno;
 use std::error::Error;
 use std::fmt;
 use std::fmt::Display;
+use std::io;
 use std::time::Duration;
 
 #[cfg(any(target_os = "linux", target_os = "android"))]
@@ -37,15 +32,15 @@ mod tests;
 #[derive(Debug)]
 pub enum SnoozeError {
   Unsupported(String),
-  Other(Errno)
+  Other(io::Error)
 }
 
 #[allow(dead_code)]
 impl SnoozeError {
   fn from_last_os_error() -> SnoozeError {
-    SnoozeError::Other(Errno::last())
+    SnoozeError::Other(io::Error::last_os_error())
   }
-  fn from_errno(error: Errno) -> SnoozeError {
+  fn from_io_error(error: io::Error) -> SnoozeError {
     SnoozeError::Other(error)
   }
 }
@@ -63,7 +58,7 @@ impl Display for SnoozeError {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     match *self {
       SnoozeError::Unsupported(ref msg) => f.write_str(msg),
-      SnoozeError::Other(error) => f.write_str(error.desc())
+      SnoozeError::Other(ref error) => write!(f, "{}", error)
     }
   }
 }

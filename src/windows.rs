@@ -2,8 +2,8 @@ use libc::{
   FALSE, INFINITE, HANDLE, FILETIME, WAIT_OBJECT_0,
   CloseHandle, GetSystemTimeAsFileTime, WaitForSingleObject
 };
+use std::io;
 use std::mem;
-use std::os::{last_os_error};
 use std::ptr::{null, null_mut};
 use std::time::duration::Duration;
 
@@ -72,7 +72,7 @@ impl Drop for Snooze {
   fn drop(&mut self) {
     if unsafe { CloseHandle(self.timer_handle) } == 0 {
       // TODO: Figure out if panic! in drop() is in any way acceptable
-      panic!("CloseHandle failed: {}", last_os_error());
+      panic!("CloseHandle failed: {}", io::Error::last_os_error());
     }
   }
 }
