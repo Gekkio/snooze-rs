@@ -9,6 +9,7 @@ type AbsTime = u64;
 mod ffi {
   use libc::{c_int, mach_timebase_info};
 
+  #[allow(non_camel_case_types)]
   pub type kern_return_t = c_int;
   pub const KERN_SUCCESS: kern_return_t = 0;
 
