@@ -63,7 +63,7 @@ fn bench_1ms(b: &mut Bencher) {
 fn bench_100us_sum(b: &mut Bencher) {
   let mut snooze = Snooze::new(Duration::microseconds(100)).unwrap();
   b.iter(|| {
-    for _ in range_inclusive(0, 100us) {
+    for _ in range_inclusive(0, 100usize) {
       snooze.wait().unwrap()
     }
   });
@@ -72,7 +72,7 @@ fn bench_100us_sum(b: &mut Bencher) {
 fn bench_1ms_sum(b: &mut Bencher) {
   let mut snooze = Snooze::new(Duration::milliseconds(1)).unwrap();
   b.iter(|| {
-    for _ in range_inclusive(0, 10us) {
+    for _ in range_inclusive(0, 10usize) {
       snooze.wait().unwrap()
     }
   });
