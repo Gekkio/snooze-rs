@@ -15,12 +15,16 @@ mod ffi {
   use libc::{BOOL, HANDLE, LARGE_INTEGER, LONG, LPSECURITY_ATTRIBUTES, LPVOID};
   use libc::types::os::arch::extra::{LPCWSTR};
 
+  #[allow(non_camel_case_types)]
   pub type LPCTSTR = LPCWSTR;
 
   extern "stdcall" {
+    #[allow(non_snake_case_functions)]
     pub fn CreateWaitableTimerW(lpTimerAttributes: LPSECURITY_ATTRIBUTES,
                                 bManualReset: BOOL,
                                 lpTimerName: LPCTSTR) -> HANDLE;
+
+    #[allow(non_snake_case_functions)]
     pub fn SetWaitableTimer(hTimer: HANDLE,
                             pDueTime: *const LARGE_INTEGER,
                             lPeriod: LONG,
