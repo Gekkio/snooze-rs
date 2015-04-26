@@ -5,13 +5,15 @@ snooze-rs
 
 [![Build Status](https://travis-ci.org/Gekkio/snooze-rs.svg?branch=master)](https://travis-ci.org/Gekkio/snooze-rs)
 
+Currently works **only with nightly Rust**.
+
 ## Usage:
 
 Cargo.toml:
 
 ```toml
-[dependencies.snooze-rs]
-git = "https://github.com/Gekkio/snooze-rs.git"
+[dependencies]
+snooze-rs = "0.0.2"
 ```
 
 Crate root:
