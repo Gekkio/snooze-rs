@@ -1,4 +1,4 @@
-#![feature(libc, std_misc)]
+#![feature(std_misc)]
 
 #![cfg_attr(test, feature(core, test))]
 
