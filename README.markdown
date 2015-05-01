@@ -25,12 +25,16 @@ extern crate snooze;
 Basic usage:
 
 ```rust
-use snooze::Snooze;
+use snooze::{Snooze, SnoozeError};
+use std::time::duration::Duration;
 
-let mut snooze = try!(Snooze::new(Duration::milliseconds(42)));
-loop {
-  try!(snooze.wait());
-  do_things();
+fn sleep_and_work() -> Result<(), SnoozeError> {
+  let mut snooze = try!(Snooze::new(Duration::milliseconds(42)));
+  while should_continue() {
+    try!(snooze.wait());
+    do_things();
+  }
+  Ok(())
 }
 ```
 
