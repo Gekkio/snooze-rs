@@ -31,36 +31,36 @@ mod tests;
 
 #[derive(Debug)]
 pub enum SnoozeError {
-  Unsupported(String),
-  Other(io::Error)
+    Unsupported(String),
+    Other(io::Error)
 }
 
 #[allow(dead_code)]
 impl SnoozeError {
-  fn from_last_os_error() -> SnoozeError {
-    SnoozeError::Other(io::Error::last_os_error())
-  }
-  fn from_io_error(error: io::Error) -> SnoozeError {
-    SnoozeError::Other(error)
-  }
+    fn from_last_os_error() -> SnoozeError {
+        SnoozeError::Other(io::Error::last_os_error())
+    }
+    fn from_io_error(error: io::Error) -> SnoozeError {
+        SnoozeError::Other(error)
+    }
 }
 
 impl Error for SnoozeError {
-  fn description(&self) -> &str {
-    match *self {
-      SnoozeError::Unsupported(..) => "Unsupported system",
-      SnoozeError::Other(..) => "System error"
+    fn description(&self) -> &str {
+        match *self {
+            SnoozeError::Unsupported(..) => "Unsupported system",
+            SnoozeError::Other(..) => "System error"
+        }
     }
-  }
 }
 
 impl Display for SnoozeError {
-  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-    match *self {
-      SnoozeError::Unsupported(ref msg) => f.write_str(msg),
-      SnoozeError::Other(ref error) => write!(f, "{}", error)
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            SnoozeError::Unsupported(ref msg) => f.write_str(msg),
+            SnoozeError::Other(ref error) => write!(f, "{}", error)
+        }
     }
-  }
 }
 
 pub type SnoozeResult<T> = Result<T, SnoozeError>;
@@ -69,11 +69,10 @@ pub type SnoozeResult<T> = Result<T, SnoozeError>;
 pub struct Snooze(os_specific::Snooze);
 
 impl Snooze {
-  pub fn new(duration: Duration) -> SnoozeResult<Snooze> {
-    Ok(Snooze(try!(os_specific::Snooze::new(duration))))
-  }
-  pub fn reset(&mut self) -> SnoozeResult<()> { self.0.reset() }
-  /// Puts the current thread to sleep until the next wake-up time
-  pub fn wait(&mut self) -> SnoozeResult<()> { self.0.wait() }
+    pub fn new(duration: Duration) -> SnoozeResult<Snooze> {
+        Ok(Snooze(try!(os_specific::Snooze::new(duration))))
+    }
+    pub fn reset(&mut self) -> SnoozeResult<()> { self.0.reset() }
+    /// Puts the current thread to sleep until the next wake-up time
+    pub fn wait(&mut self) -> SnoozeResult<()> { self.0.wait() }
 }
-
