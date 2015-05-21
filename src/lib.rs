@@ -1,9 +1,5 @@
-#![cfg_attr(test, feature(core, test))]
-
 extern crate libc;
 extern crate time;
-#[cfg(test)]
-extern crate test;
 
 #[cfg(any(target_os = "linux", target_os = "android"))]
 use self::linux as os_specific;
