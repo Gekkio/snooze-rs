@@ -11,7 +11,7 @@ Cargo.toml:
 
 ```toml
 [dependencies]
-snooze-rs = "0.0.2"
+snooze-rs = "0.0.3"
 ```
 
 Crate root:
