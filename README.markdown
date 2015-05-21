@@ -5,8 +5,6 @@ snooze-rs
 
 [![Build Status](https://travis-ci.org/Gekkio/snooze-rs.svg?branch=master)](https://travis-ci.org/Gekkio/snooze-rs)
 
-Currently works **only with nightly Rust**.
-
 ## Usage:
 
 Cargo.toml:
@@ -20,13 +18,14 @@ Crate root:
 
 ```rust
 extern crate snooze;
+extern crate time;
 ```
 
 Basic usage:
 
 ```rust
 use snooze::{Snooze, SnoozeError};
-use std::time::duration::Duration;
+use time::duration::Duration;
 
 fn sleep_and_work() -> Result<(), SnoozeError> {
   let mut snooze = try!(Snooze::new(Duration::milliseconds(42)));
