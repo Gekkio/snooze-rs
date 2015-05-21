@@ -1,5 +1,5 @@
 use std::iter::range_inclusive;
-use std::time::Duration;
+use time::Duration;
 use test::Bencher;
 
 use super::Snooze;

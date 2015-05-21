@@ -1,8 +1,7 @@
-#![feature(std_misc)]
-
 #![cfg_attr(test, feature(core, test))]
 
 extern crate libc;
+extern crate time;
 #[cfg(test)]
 extern crate test;
 
@@ -17,7 +16,7 @@ use std::error::Error;
 use std::fmt;
 use std::fmt::Display;
 use std::io;
-use std::time::Duration;
+use time::Duration;
 
 #[cfg(any(target_os = "linux", target_os = "android"))]
 mod linux;

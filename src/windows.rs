@@ -5,7 +5,7 @@ use libc::{
 use std::io;
 use std::mem;
 use std::ptr::{null, null_mut};
-use std::time::duration::Duration;
+use time::Duration;
 
 use super::{SnoozeError, SnoozeResult};
 

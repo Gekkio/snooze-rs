@@ -2,7 +2,7 @@ use libc::{CLOCK_MONOTONIC, c_long, time_t, timespec};
 use std::io;
 use std::mem;
 use std::ptr::null_mut;
-use std::time::duration::Duration;
+use time::Duration;
 
 use super::{SnoozeError, SnoozeResult};
 

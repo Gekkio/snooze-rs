@@ -14,3 +14,4 @@ name = "snooze"
 
 [dependencies]
 libc = "0.1.6"
+time = "0.1.25"
