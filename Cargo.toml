@@ -1,7 +1,7 @@
 [package]
 
 name = "snooze-rs"
-version = "0.0.3"
+version = "0.0.4"
 authors = ["Joonas Javanainen <joonas.javanainen@gmail.com>"]
 description = "An experimental library for sleeping periodically"
 readme = "README.markdown"
