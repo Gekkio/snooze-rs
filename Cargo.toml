@@ -13,5 +13,5 @@ license = "Apache-2.0"
 name = "snooze"
 
 [dependencies]
-libc = "0.1.8"
-time = "0.1.25"
+libc = "0.1"
+time = "0.1"
