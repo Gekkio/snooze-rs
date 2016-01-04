@@ -4,6 +4,7 @@ snooze-rs
 *Experimental* library for sleeping periodically in Rust code.
 
 [![Build Status](https://travis-ci.org/Gekkio/snooze-rs.svg?branch=master)](https://travis-ci.org/Gekkio/snooze-rs)
+[![Latest release on crates.io](https://meritbadge.herokuapp.com/snooze-rs)](https://crates.io/crates/snooze-rs)
 
 ## Usage:
 
